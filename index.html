@@ -32,8 +32,14 @@
 <body oncontextmen="return false">
     <canvas id="main_canvas" width="1280" height="800"> </canvas>
     <!-- JavaScript files -->
+    <script type="text/javascript" src="./script/game.js"> </script>
+    <script type="text/javascript" src="./script/fpscontroller.js"> </script>
     <script type="text/javascript" src="./script/main.js"> </script>
 
-    <script> main("main_canvas"); </script>
+    <script>
+        var canvas_id = 'main_canvas';
+        var FPS = 60;
+        main(canvas_id, FPS);
+    </script>
 </body>
 </html>
