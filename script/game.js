@@ -51,5 +51,5 @@ Game.prototype.drawFPS = function(ctx) {
     ctx.fillStyle = 'rgb(20, 20, 20)';
     ctx.fillRect(0, 0, 40, 20);
     ctx.fillStyle = 'rgb(200, 200, 200)';
-    ctx.fillText(this.fps_ctrl.getFPS(), 5, 14);
+    ctx.fillText(this.fps_ctrl.getSlowFPS(), 5, 14);
 };

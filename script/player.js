@@ -53,11 +53,10 @@ Player.prototype.update = function() {
 };
 
 Player.prototype.draw = function(ctx) {
-    ctx.fillStyle = 'rgb(0, 90, 50)';
-    //ctx.fillRect(-this.width/2, -this.height/2, this.width, this.height);
-    //ctx.ellipse(0, this.width/2, this.height/2, this.width/2, this.height/2, 100, 0, 0);
     ctx.beginPath();
-        ctx.arc(0, 0, this.width/2, this.height/2, Math.PI);
+        ctx.arc(0, 0, this.width/2, 0, 2 * Math.PI);
     ctx.closePath();
+
+    ctx.fillStyle   = 'rgb(0, 90, 50)';
     ctx.fill();
 };
