@@ -1,5 +1,5 @@
 // TODO: Creature inheritance
-function Player(kbh, x, y) {
+function Player(kbh, x, y, player) {
     this.x = x;
     this.y = y;
     this.kbh = kbh;
@@ -8,6 +8,10 @@ function Player(kbh, x, y) {
     this.vy = 0;
 
     this.controls = this.CONTROL_P1;
+
+    if(player) {
+        this.controls = this['CONTROL_P' + player];
+    }
 };
 
 Player.prototype.MAX_VX = 10;

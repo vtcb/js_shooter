@@ -4,11 +4,19 @@ function Game(canvas_id, kbh) {
 
     this.kbh = kbh;
 
-    this.player = new Player(kbh, 5, 5);
+    this.player1 = new Player(kbh,   5,   5, 1);
+    //this.player2 = new Player(kbh, 555, 555, 2);
+
+    this.player = this.player1;
+    this.players = [
+        this.player1
+    ];
 };
 
 Game.prototype.update = function() {
-    this.player.update();
+    for(player of this.players) {
+        player.update();
+    }
 
     this.draw(this.ctx);
 };
@@ -18,9 +26,11 @@ Game.prototype.draw = function(ctx) {
     //ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     ctx.fillRect (0, 0, this.canvas.width, this.canvas.height);
 
-    ctx.save();
-        ctx.translate(this.player.x, this.player.y);
+    for(player of this.players) {
+        ctx.save();
+            ctx.translate(player.x, player.y);
 
-        this.player.draw(ctx);
-    ctx.restore();
+            player.draw(ctx);
+        ctx.restore();
+    }
 };
