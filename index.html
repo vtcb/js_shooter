@@ -5,7 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title> JS Shooter </title>
-
+<!--
     <style>
         *{
             cursor: crosshair;
@@ -26,11 +26,14 @@
             height:             100%;
         }
     </style>
+-->
 
 </head>
 
 <body oncontextmen="return false">
-    <canvas id="main_canvas" width="1280" height="800"> </canvas>
+    <div id="div_game" with="400" heigth="400">
+        <canvas id="canvas_main" width="400" height="400"> </canvas>
+    </div>
     <!-- JavaScript files -->
     <script type="text/javascript" src="./script/kbhandler.js"> </script>
     <script type="text/javascript" src="./script/auxiliar.js"> </script>
@@ -41,7 +44,7 @@
     <script type="text/javascript" src="./script/main.js"> </script>
 
     <script>
-        var canvas_id = 'main_canvas';
+        var canvas_id = 'canvas_main';
         var FPS = 60;
         main(canvas_id, FPS);
     </script>
