@@ -1,6 +1,7 @@
-function Game(canvas_id, kbh) {
-    this.canvas = document.getElementById(canvas_id);
-    this.ctx = this.canvas.getContext('2d');
+function Game(canvas_id, kbh, fps_ctrl) {
+    this.canvas   = document.getElementById(canvas_id);
+    this.ctx      = this.canvas.getContext('2d');
+    this.fps_ctrl = fps_ctrl
 
     this.kbh = kbh;
 
@@ -33,4 +34,17 @@ Game.prototype.draw = function(ctx) {
             player.draw(ctx);
         ctx.restore();
     }
+
+    ctx.save();
+        ctx.translate(350, 10);
+
+        this.drawFPS(ctx);
+    ctx.restore();
+};
+
+Game.prototype.drawFPS = function(ctx) {
+    ctx.fillStyle = 'rgb(20, 20, 20)';
+    ctx.fillRect(0, 0, 40, 20);
+    ctx.fillStyle = 'rgb(200, 200, 200)';
+    ctx.fillText(this.fps_ctrl.getFPS(), 5, 14);
 };
