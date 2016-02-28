@@ -4,7 +4,7 @@ function MainControl(canvas, FPS) {
 
     this.kbh      = new KBHandler();
     this.fps_ctrl = new FPSController(FPS, this.upd_func, { self : this, ctx: canvas.getContext('2d') });
-    this.game     = new Game(canvas, this.kbh, this.control);
+    this.game     = new Game(canvas, this.kbh, this.control, 1000, 1000);
     this.menu     = new MainMenu(
         canvas, this.kbh,
         this.canvas.width/2, this.canvas.height/2,

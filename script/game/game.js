@@ -1,13 +1,16 @@
-function Game(canvas, kbh, fps_ctrl) {
+function Game(canvas, kbh, fps_ctrl, width, height) {
     this.canvas   = canvas
     this.ctx      = this.canvas.getContext('2d');
     this.fps_ctrl = fps_ctrl
 
-    this.kbh = kbh;
+    this.width    = width  || canvas.width;
+    this.height   = height || canvas.height;
 
-    this.player1 = new Player(kbh, this.canvas.width/2, this.canvas.height/2, 20, 'both');
+    this.kbh      = kbh;
 
-    this.player = this.player1;
+    this.player1  = new Player(kbh, this.canvas.width/2, this.canvas.height/2, 20, 'both');
+
+    this.player   = this.player1;
     this.creatures = [
         this.player,
         new Creature(30, 30, 50)
@@ -22,12 +25,39 @@ Game.prototype.update = function() {
 };
 
 Game.prototype.draw = function(ctx) {
-    /* Draw creatures */
-    for(var creature of this.creatures) {
-        ctx.save();
-            ctx.translate(creature.x, creature.y);
+    ctx.save();
+        /* Centralize player */
+        var dx = limit(
+            this.player.x,
+            0          + this.canvas.width/2,
+            this.width - this.canvas.width/2
+        ) - this.canvas.width/2;
 
-            creature.draw(ctx);
-        ctx.restore();
-    }
+        var dy = limit(
+            this.player.y,
+            0           + this.canvas.height/2,
+            this.height - this.canvas.height/2
+        ) - this.canvas.height/2;
+
+        ctx.translate(-dx, -dy);
+
+
+        ctx.fillStyle = 'rgb(200, 200, 200)';
+        /* Draw grid */
+        for(var i = 0; i < this.width; i += 50) {
+            ctx.fillRect(i, 0, 1, this.height);
+        }
+        for(var i = 0; i < this.height; i += 50) {
+            ctx.fillRect(0, i, this.width, 1);
+        }
+
+        /* Draw creatures */
+        for(var creature of this.creatures) {
+            ctx.save();
+                ctx.translate(creature.x, creature.y);
+
+                creature.draw(ctx);
+            ctx.restore();
+        }
+    ctx.restore();
 };
