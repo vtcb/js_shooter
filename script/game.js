@@ -5,35 +5,41 @@ function Game(canvas_id, kbh, fps_ctrl) {
 
     this.kbh = kbh;
 
-    this.player1 = new Player(kbh, this.canvas.width/2, this.canvas.height/2, 'both');
+    this.player1 = new Player(kbh, this.canvas.width/2, this.canvas.height/2, 20, 'both');
 
     this.player = this.player1;
-    this.players = [
-        this.player1
+    this.creatures = [
+        this.player,
+        new Creature(30, 30, 50)
     ];
 };
 
 Game.prototype.update = function() {
-    for(var player of this.players) {
-        player.update();
+    /* Update creatures */
+    for(var creature of this.creatures) {
+        creature.update();
     }
 
+    /* Draw */
     this.draw(this.ctx);
 };
 
 Game.prototype.draw = function(ctx) {
+    /* Clear screen */
     ctx.fillStyle = 'rgb(20, 20, 70)';
     //ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     ctx.fillRect (0, 0, this.canvas.width, this.canvas.height);
 
-    for(var player of this.players) {
+    /* Draw creatures */
+    for(var creature of this.creatures) {
         ctx.save();
-            ctx.translate(player.x, player.y);
+            ctx.translate(creature.x, creature.y);
 
-            player.draw(ctx);
+            creature.draw(ctx);
         ctx.restore();
     }
 
+    /* Draw FPS Display */
     ctx.save();
         ctx.translate(this.canvas.width - 50, 10);
 
