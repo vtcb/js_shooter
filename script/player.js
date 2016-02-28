@@ -1,16 +1,25 @@
 // TODO: Creature inheritance
 function Player(kbh, x, y, player) {
-    this.x = x;
-    this.y = y;
-    this.kbh = kbh;
+    this.x        = x;
+    this.y        = y;
+    this.kbh      = kbh;
 
-    this.vx = 0;
-    this.vy = 0;
+    this.width    = 20;
+    this.height   = 20;
+
+    this.vx       = 0;
+    this.vy       = 0;
 
     this.controls = this.CONTROL_P1;
 
     if(player) {
-        this.controls = this['CONTROL_P' + player];
+        if(player == 'both') {
+            for(var control in this.CONTROL_P2) {
+                this.controls[control] = this.CONTROL_P2[control];
+            }
+        } else {
+            this.controls = this['CONTROL_P' + player];
+        }
     }
 };
 
@@ -22,24 +31,28 @@ Player.prototype.RET_X  = 0.05;
 Player.prototype.RET_Y  = 0.05;
 
 Player.prototype.ACC_DIR = {
-    left  : {x: -1, y:  0},
-    up    : {x:  0, y: -1},
-    right : {x:  1, y:  0},
-    down  : {x:  0, y:  1}
+    left   : {x: -1, y:  0},
+    up     : {x:  0, y: -1},
+    right  : {x:  1, y:  0},
+    down   : {x:  0, y:  1},
+    left2  : {x: -1, y:  0},
+    up2    : {x:  0, y: -1},
+    right2 : {x:  1, y:  0},
+    down2  : {x:  0, y:  1}
 };
 
 Player.prototype.CONTROL_P1 = { // Arrow Keys
-    left  : 37,
-    up    : 38,
-    right : 39,
-    down  : 40
+    left   : 37,
+    up     : 38,
+    right  : 39,
+    down   : 40
 };
 
 Player.prototype.CONTROL_P2 = { // WASD
-    left  : 'A'.charCodeAt(0),
-    up    : 'W'.charCodeAt(0),
-    right : 'D'.charCodeAt(0),
-    down  : 'S'.charCodeAt(0)
+    left2  : 'A'.charCodeAt(0),
+    up2    : 'W'.charCodeAt(0),
+    right2 : 'D'.charCodeAt(0),
+    down2  : 'S'.charCodeAt(0)
 };
 
 Player.prototype.accelerate = function(dx, dy) {
@@ -84,5 +97,5 @@ Player.prototype.update = function() {
 
 Player.prototype.draw = function(ctx) {
     ctx.fillStyle = 'rgb(0, 90, 50)';
-    ctx.fillRect(0, 0, 50, 50);
+    ctx.fillRect(-this.width/2, -this.height/2, this.width, this.height);
 };

@@ -5,8 +5,7 @@ function Game(canvas_id, kbh, fps_ctrl) {
 
     this.kbh = kbh;
 
-    this.player1 = new Player(kbh,   5,   5, 1);
-    //this.player2 = new Player(kbh, 555, 555, 2);
+    this.player1 = new Player(kbh, this.canvas.width/2, this.canvas.height/2, 'both');
 
     this.player = this.player1;
     this.players = [
@@ -15,7 +14,7 @@ function Game(canvas_id, kbh, fps_ctrl) {
 };
 
 Game.prototype.update = function() {
-    for(player of this.players) {
+    for(var player of this.players) {
         player.update();
     }
 
@@ -23,11 +22,11 @@ Game.prototype.update = function() {
 };
 
 Game.prototype.draw = function(ctx) {
-    ctx.fillStyle = 'rgb(0, 0, 40)';
+    ctx.fillStyle = 'rgb(20, 20, 70)';
     //ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     ctx.fillRect (0, 0, this.canvas.width, this.canvas.height);
 
-    for(player of this.players) {
+    for(var player of this.players) {
         ctx.save();
             ctx.translate(player.x, player.y);
 
@@ -36,7 +35,7 @@ Game.prototype.draw = function(ctx) {
     }
 
     ctx.save();
-        ctx.translate(350, 10);
+        ctx.translate(this.canvas.width - 50, 10);
 
         this.drawFPS(ctx);
     ctx.restore();
