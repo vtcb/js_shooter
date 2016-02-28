@@ -4,7 +4,7 @@ function Game(canvas_id, kbh) {
 
     this.kbh = kbh;
 
-    this.player = new Player(5, 5, kbh);
+    this.player = new Player(kbh, 5, 5);
 };
 
 Game.prototype.update = function() {

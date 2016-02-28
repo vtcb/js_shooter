@@ -1,4 +1,6 @@
 Add [Player|Enemy] x Creature inheritance
+Add WASD + Arrows simultaneously
+Add custom controls
 Add enemies
 Add shots
 Add life
