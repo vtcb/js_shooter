@@ -1,3 +1,3 @@
-function limit(a, b) {
-    return Math.min(Math.max(a, -b), b);
+function limit(a, b, c) {
+    return Math.min(Math.max(a, b), c);
 }

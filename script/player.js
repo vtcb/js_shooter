@@ -15,7 +15,7 @@ function Player(x, y) {
 
     var self = this;
 
-    Player.prototype.listener = function(event) {
+    this.listener = function(event) {
         var code = event.keyCode;
 
         switch(code) {
@@ -41,12 +41,20 @@ Player.prototype.MAX_VX = 4;
 Player.prototype.MAX_VY = 4;
 Player.prototype.ACC_X  = 0.2;
 Player.prototype.ACC_Y  = 0.2;
-Player.prototype.DES_X  = 0.2;
-Player.prototype.DES_Y  = 0.2;
+Player.prototype.RET_X  = 0.02;
+Player.prototype.RET_Y  = 0.02;
 
 Player.prototype.accelerate = function(dx, dy) {
-    this.vx = limit(this.vx + dx * this.ACC_X, this.MAX_VX);
-    this.vy = limit(this.vy + dy * this.ACC_Y, this.MAX_VY);
+    this.vx = limit(this.vx + dx * this.ACC_X, -this.MAX_VX, this.MAX_VX);
+    this.vy = limit(this.vy + dy * this.ACC_Y, -this.MAX_VY, this.MAX_VY);
+};
+
+Player.prototype.retard = function() {
+    var dx = this.vx > 0 ? 1 : this.vx < 0 ? -1 : 0;
+    var dy = this.vy > 0 ? 1 : this.vy < 0 ? -1 : 0;
+
+    this.vx = limit(this.vx - dx * this.RET_X, -this.MAX_VX, this.MAX_VX);
+    this.vy = limit(this.vy - dy * this.RET_Y, -this.MAX_VY, this.MAX_VY);
 };
 
 Player.prototype.move = function() {
@@ -57,6 +65,7 @@ Player.prototype.move = function() {
 
 Player.prototype.update = function() {
     this.move();
+    this.retard();
 };
 
 Player.prototype.draw = function(ctx) {
