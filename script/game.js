@@ -1,10 +1,10 @@
-function Game(canvas_id) {   
+function Game(canvas_id, kbh) {
     this.canvas = document.getElementById(canvas_id);
     this.ctx = this.canvas.getContext('2d');
 
-    this.cnt = 0;
+    this.kbh = kbh;
 
-    this.player = new Player(5, 5);
+    this.player = new Player(5, 5, kbh);
 };
 
 Game.prototype.update = function() {
