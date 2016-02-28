@@ -1,5 +1,5 @@
-function Game(canvas_id, kbh, fps_ctrl) {
-    this.canvas   = document.getElementById(canvas_id);
+function Game(canvas, kbh, fps_ctrl) {
+    this.canvas   = canvas
     this.ctx      = this.canvas.getContext('2d');
     this.fps_ctrl = fps_ctrl
 
@@ -19,9 +19,6 @@ Game.prototype.update = function() {
     for(var creature of this.creatures) {
         creature.update();
     }
-
-    /* Draw */
-    this.draw(this.ctx);
 };
 
 Game.prototype.draw = function(ctx) {

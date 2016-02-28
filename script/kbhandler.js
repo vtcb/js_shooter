@@ -19,4 +19,8 @@ function KBHandler() {
     this.isPressed = function(code) {
         return pressed[code];
     };
+
+    this.release = function(code) {
+        return pressed[code] = false;
+    };
 }
