@@ -1,14 +1,19 @@
 function KBHandler() {
     var pressed = {};
+    var qty = 0;
 
     this.keydown_listener = function(event) {
         var code = event.keyCode;
+
+        if(!pressed[code]) qty++;
 
         pressed[code] = true;
     };
 
     this.keyup_listener = function(event) {
         var code = event.keyCode;
+
+        if(pressed[code]) qty--;
 
         pressed[code] = false;
     };
@@ -21,6 +26,16 @@ function KBHandler() {
     };
 
     this.release = function(code) {
-        return pressed[code] = false;
+        if(pressed[code]) qty--;
+
+        pressed[code] = false;
+    };
+
+    this.anythingPressed = function() {
+        return qty > 0;
+    };
+
+    this.getPressed = function() {
+        return pressed;
     };
 }

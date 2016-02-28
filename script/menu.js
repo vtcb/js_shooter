@@ -11,6 +11,18 @@ function Menu(canvas, kbh, x, y, width, height, option_heigth, color) {
 
     this.options       = [];
     this.selected      = 0;
+
+    this.pressed       = {};
+};
+
+Menu.prototype.reset = function() {
+    this.selected = 0;
+    this.pressed  = {}
+
+    for(var option of this.options) {
+        option.selected = false;
+        option.pressed  = false;
+    }
 };
 
 Menu.prototype.addOption = function(text, action) {
@@ -45,7 +57,10 @@ Menu.prototype.moveDown = function() {
 };
 
 Menu.prototype.select = function() {
-    this.options[this.selected].action();
+    this.options[this.selected].pressed = true;
+    if(this.options[this.selected].action) {
+        this.options[this.selected].action();
+    }
 };
 
 Menu.prototype.controls = {
@@ -54,13 +69,22 @@ Menu.prototype.controls = {
     13 : 'select'    // Enter
 };
 
+Menu.prototype.checkStateChange = function() {
+};
+
 Menu.prototype.update = function() {
     for(var key in this.controls) {
-        if(kbh.isPressed(key)) {
-            kbh.release(key);
-            this[this.controls[key]]();
+        if(this.kbh.isPressed(key)) {
+            if(!this.pressed[key]) {
+                this.pressed[key] = true;
+                this[this.controls[key]]();
+            }
+        } else {
+            this.pressed[key] = false;
         }
     };
+
+    this.checkStateChange();
 };
 
 Menu.prototype.draw = function(ctx) {

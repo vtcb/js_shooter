@@ -8,6 +8,7 @@ function MenuOption(x, y, width, heigth, color, text, action) {
     this.color     = color;
 
     this.selected  = false;
+    this.pressed   = false;
 };
 
 MenuOption.prototype.draw = function(ctx) {
