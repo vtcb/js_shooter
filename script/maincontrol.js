@@ -1,16 +1,14 @@
 function MainControl(canvas, FPS) {
-    var self      = this;
-    var ctx       = canvas.getContext('2d');
-
     this.canvas   = canvas;
     this.FPS      = FPS;
 
     this.kbh      = new KBHandler();
-    this.fps_ctrl = new FPSController(FPS, function() { self.update(); self.draw(ctx); });
+    this.fps_ctrl = new FPSController(FPS, this.upd_func, { self : this, ctx: canvas.getContext('2d') });
     this.game     = new Game(canvas, this.kbh, this.control);
     this.menu     = new MainMenu(
         canvas, this.kbh,
-        50, 50, 200, 400, 50,
+        this.canvas.width/2, this.canvas.height/2,
+        200, 400, 50,
         {
             in       : 'rgb(0, 130, 130)',
             out      : 'rgb(0, 70, 70)',
@@ -21,6 +19,11 @@ function MainControl(canvas, FPS) {
     );
 
     this.state    = 'start screen';
+};
+
+MainControl.prototype.upd_func = function(args) {
+    args.self.update();
+    args.self.draw(args.ctx);
 };
 
 MainControl.prototype.run = function() {

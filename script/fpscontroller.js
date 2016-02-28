@@ -1,4 +1,4 @@
-function FPSController(FPS, update_function) {
+function FPSController(FPS, update_function, args) {
     var FRAMES_SAVED = 60;
     var frames = [];
     var frame_count = 0;
@@ -12,7 +12,7 @@ function FPSController(FPS, update_function) {
         frames.push( (new Date()).getTime() );
         if(frames.length > FRAMES_SAVED) frames.shift();
 
-        update_function();
+        update_function(args);
     };
 
     this.run = run;
