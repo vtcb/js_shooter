@@ -4,16 +4,19 @@ function Game(canvas_id) {
 
     this.cnt = 0;
 
-    this.player = new Creature(5, 5);
+    this.player = new Player(5, 5);
 };
 
 Game.prototype.update = function() {
+    this.player.update();
+
     this.draw(this.ctx);
 };
 
 Game.prototype.draw = function(ctx) {
     ctx.fillStyle = 'rgb(0, 0, 40)';
-    ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    //ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    ctx.fillRect (0, 0, this.canvas.width, this.canvas.height);
 
     ctx.save();
         ctx.translate(this.player.x, this.player.y);

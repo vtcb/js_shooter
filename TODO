@@ -1,6 +1,5 @@
-Add player
 Add [Player|Enemy] x Creature inheritance
-Add movements
+Fix movements (Fix listener)
 Add enemies
 Add shots
 Add life
