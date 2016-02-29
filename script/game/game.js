@@ -1,17 +1,17 @@
 function Game(canvas, kbh, fps_ctrl, width, height) {
-    this.canvas   = canvas
-    this.ctx      = this.canvas.getContext('2d');
-    this.fps_ctrl = fps_ctrl
+    this.canvas    = canvas;
+    this.ctx       = this.canvas.getContext('2d');
+    this.fps_ctrl  = fps_ctrl;
 
-    this.width    = width  || canvas.width;
-    this.height   = height || canvas.height;
+    this.width     = width  || canvas.width;
+    this.height    = height || canvas.height;
 
-    this.kbh      = kbh;
+    this.kbh       = kbh;
 
-    this.player1  = new Player(kbh, this.canvas.width/2, this.canvas.height/2, 20, 'both');
+    this.player1   = new Player(kbh, this.canvas.width/2, this.canvas.height/2, 20, 20, 'both');
 
-    this.player   = this.player1;
-    this.enemies  = [];
+    this.player    = this.player1;
+    this.enemies   = [];
 
     this.creatures = [
         this.player,
@@ -34,7 +34,6 @@ Game.prototype.update = function() {
     }
 
     /* Remove enemies out of screen */
-    //this.enemies = this.enemies.filter( this.enemyFilter );
     for(var i in this.enemies) {
         if(this.enemyFilter(this.enemies[i])) {
             this.enemies[i].remove = true;
@@ -42,10 +41,10 @@ Game.prototype.update = function() {
     }
     this.enemies   = this.enemies.filter( function(elem) { return !elem.remove; });
 
-    while(this.enemies.length < 10) {
+    /* Gerenerate more enemies */
+    while(this.enemies.length < 30) {
         var new_enemy = (new EnemyGenerator(this.width, this.height)).generate();
         this.enemies.push( new_enemy );
-        this.creatures.push( new_enemy );
     }
 
     this.creatures = this.enemies.concat([this.player]);

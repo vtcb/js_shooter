@@ -1,3 +1,11 @@
+/** KeyBoard Handler
+ *
+ * Answers if a key is pressed.
+ * Uses listeners for 'keydown' and 'keyup' events.
+ *
+ * pressed: Object with key states.
+ * qty    : Quantity of pressed keys.
+ */
 function KBHandler() {
     var pressed = {};
     var qty = 0;

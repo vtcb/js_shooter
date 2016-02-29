@@ -1,4 +1,13 @@
-function FPSController(FPS, update_function, args) {
+/** FPS Controller
+ *
+ * Calls a callback function at a controlled rate.
+ *
+ * FPS     : Frames Per Second.
+ *           Rate of which the callback function wiil be called.
+ * callback: Callback function.
+ * args    : Arguments for the callback function.
+ */
+function FPSController(FPS, callback, args) {
     var FRAMES_SAVED = 60;
     var frames = [];
     var frame_count = 0;
@@ -12,7 +21,7 @@ function FPSController(FPS, update_function, args) {
         frames.push( (new Date()).getTime() );
         if(frames.length > FRAMES_SAVED) frames.shift();
 
-        update_function(args);
+        callback(args);
     };
 
     this.run = run;
@@ -35,9 +44,5 @@ function FPSController(FPS, update_function, args) {
 
     this.getTargetFPS = function() {
         return FPS;
-    };
-
-    this.toString = function() {
-        return JSON.stringify(frames);
     };
 };

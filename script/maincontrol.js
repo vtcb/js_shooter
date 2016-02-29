@@ -1,3 +1,7 @@
+/** Main Control
+ *
+ * Controls the different screens and theirs links.
+ */
 function MainControl(canvas, FPS) {
     this.canvas   = canvas;
     this.FPS      = FPS;
@@ -93,6 +97,6 @@ MainControl.prototype.drawFPS = function(ctx) {
         ctx.fillStyle = 'rgb(20, 20, 20)';
         ctx.fillRect(0, 0, 40, 20);
         ctx.fillStyle = 'rgb(200, 200, 200)';
-        ctx.fillText(this.fps_ctrl.getSlowFPS(), 5, 14);
+        ctx.fillText(this.fps_ctrl.getSlowFPS().toFixed(2), 7, 14);
     ctx.restore();
 };
