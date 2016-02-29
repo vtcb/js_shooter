@@ -1,5 +1,5 @@
-function Player(kbh, x, y, size, player) {
-    Creature.call(this, x, y, size);
+function Player(kbh, x, y, size, life, player) {
+    Creature.call(this, x, y, size, life);
     this.kbh      = kbh;
 
     this.controls = this.CONTROL_P1;

@@ -4,9 +4,7 @@
  * Enemy objects inherit from this.
  */
 function Enemy(x, y, size, life) {
-    Creature.call(this, x, y, size);
-
-    this.life = life;
+    Creature.call(this, x, y, size, life);
 };
 Enemy.prototype = Object.create(Creature.prototype);
 

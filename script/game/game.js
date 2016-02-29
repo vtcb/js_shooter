@@ -15,8 +15,7 @@ function Game(canvas, kbh, fps_ctrl, width, height) {
 
     this.creatures = [
         this.player,
-        new Creature(30, 30, 50),
-        (new Enemy1Generator(this.width, this.height)).generate()
+        new Creature(30, 30, 50)
     ];
 };
 
@@ -44,7 +43,7 @@ Game.prototype.update = function() {
     this.enemies   = this.enemies.filter( function(elem) { return !elem.remove; });
 
     while(this.enemies.length < 10) {
-        var new_enemy = (new Enemy1Generator(this.width, this.height)).generate();
+        var new_enemy = (new EnemyGenerator(this.width, this.height)).generate();
         this.enemies.push( new_enemy );
         this.creatures.push( new_enemy );
     }

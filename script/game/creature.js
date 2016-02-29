@@ -2,7 +2,7 @@
  *
  * Base object for players and enemies.
  */
-function Creature(x, y, size) {
+function Creature(x, y, size, life) {
     this.x        = x;
     this.y        = y;
 
