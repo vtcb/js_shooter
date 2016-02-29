@@ -47,11 +47,6 @@ Player.prototype.updateEnabledDirections = function() {
     }
 };
 
-Player.prototype.update = function() {
-    this.updateEnabledDirections();
-    this.updatePosition();
-};
-
 Player.prototype.draw = function(ctx) {
     ctx.beginPath();
         ctx.arc(0, 0, this.width/2, 0, 2 * Math.PI);

@@ -83,7 +83,11 @@ Creature.prototype.updatePosition = function() {
     this.retard();
 };
 
+Creature.prototype.updateEnabledDirections = function() {
+};
+
 Creature.prototype.update = function() {
+    this.updateEnabledDirections();
     this.updatePosition();
 };
 
