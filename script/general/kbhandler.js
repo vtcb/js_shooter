@@ -6,11 +6,11 @@
  * pressed: Object with key states.
  * qty    : Quantity of pressed keys.
  */
-function KBHandler() {
+var KBHandler = function() {
     var pressed = {};
     var qty = 0;
 
-    this.keydown_listener = function(event) {
+    var keydown_listener = function(event) {
         var code = event.keyCode;
 
         if(!pressed[code]) qty++;
@@ -18,7 +18,7 @@ function KBHandler() {
         pressed[code] = true;
     };
 
-    this.keyup_listener = function(event) {
+    var keyup_listener = function(event) {
         var code = event.keyCode;
 
         if(pressed[code]) qty--;
@@ -26,24 +26,26 @@ function KBHandler() {
         pressed[code] = false;
     };
 
-    window.addEventListener('keydown', this.keydown_listener, false);
-    window.addEventListener('keyup',   this.keyup_listener,   false);
+    window.addEventListener('keydown', keydown_listener, false);
+    window.addEventListener('keyup',   keyup_listener,   false);
 
-    this.isPressed = function(code) {
-        return pressed[code];
+    return {
+        isPressed       : function(code) {
+            return pressed[code];
+        },
+
+        release         : function(code) {
+            if(pressed[code]) qty--;
+
+            pressed[code] = false;
+        },
+
+        anythingPressed : function() {
+            return qty > 0;
+        },
+
+        getPressed      : function() {
+            return pressed;
+        }
     };
-
-    this.release = function(code) {
-        if(pressed[code]) qty--;
-
-        pressed[code] = false;
-    };
-
-    this.anythingPressed = function() {
-        return qty > 0;
-    };
-
-    this.getPressed = function() {
-        return pressed;
-    };
-}
+};

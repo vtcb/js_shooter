@@ -7,42 +7,42 @@
  * callback: Callback function.
  * args    : Arguments for the callback function.
  */
-function FPSController(FPS, callback, args) {
+var FPSController = function(FPS, callback, args) {
     var FRAMES_SAVED = 60;
     var frames = [];
     var frame_count = 0;
     var lastFPS = FPS;
 
-    var run = function() {
-        setTimeout(run, 1000 / FPS);
+    return {
+        run          : function run() {
+            setTimeout(run, 1000 / FPS);
 
-        frame_count++;
+            frame_count++;
 
-        frames.push( (new Date()).getTime() );
-        if(frames.length > FRAMES_SAVED) frames.shift();
+            frames.push( (new Date()).getTime() );
+            if(frames.length > FRAMES_SAVED) frames.shift();
 
-        callback(args);
-    };
+            callback(args);
+        },
 
-    this.run = run;
+        getFrame     : function() {
+            return frame_count;
+        },
 
-    this.getFrame = function() {
-        return frame_count;
-    };
+        getFPS       : function() {
+            return 1000 * frames.length/(frames[frames.length - 1] - frames[0]);
+        },
 
-    this.getFPS = function() {
-        return 1000 * frames.length/(frames[frames.length - 1] - frames[0]);
-    };
+        getSlowFPS   : function() {
+            if(frame_count % 10 == 0) {
+                lastFPS = this.getFPS();
+            }
 
-    this.getSlowFPS = function() {
-        if(frame_count % 10 == 0) {
-            lastFPS = this.getFPS();
+            return lastFPS;
+        },
+
+        getTargetFPS : function() {
+            return FPS;
         }
-
-        return lastFPS;
-    };
-
-    this.getTargetFPS = function() {
-        return FPS;
     };
 };
