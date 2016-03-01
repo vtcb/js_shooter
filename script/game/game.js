@@ -12,6 +12,7 @@ function Game(canvas, kbh, fps_ctrl, width, height) {
 
     this.player    = this.player1;
     this.enemies   = [];
+    this.coins     = [];
 
     this.creatures = [
         this.player,
@@ -37,7 +38,7 @@ Game.prototype.update = function() {
         var enemy = this.enemies[i];
         if(this.player.collide(enemy)) {
             this.player.life -= 20;
-            //this.coins.concat(enemy.kill());
+            this.coins = this.coins.concat(enemy.kill());
             this.enemies.splice(i, 1); i--;
         }
     }
@@ -55,7 +56,10 @@ Game.prototype.update = function() {
         this.enemies.push( new_enemy );
     }
 
-    this.creatures = this.enemies.concat([this.player]);
+    this.creatures = [];
+    this.creatures = this.creatures.concat(this.coins);
+    this.creatures = this.creatures.concat(this.enemies);
+    this.creatures = this.creatures.concat([this.player]);
 };
 
 Game.prototype.draw = function(ctx) {
