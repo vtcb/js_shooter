@@ -20,7 +20,7 @@ function Game(canvas, kbh, fps_ctrl, width, height) {
     ];
 };
 
-Game.prototype.enemyFilter = function(elem) {
+Game.prototype.enemyOutOfScreen = function(elem) {
     return !valid(
         elem.x, elem.y,
         this.width + this.canvas.width, this.height + this.canvas.height,
@@ -34,18 +34,41 @@ Game.prototype.update = function() {
         creature.update();
     }
 
+    /* Check player collision with enemy */
     for(var i = 0; i < this.enemies.length; i++) {
         var enemy = this.enemies[i];
         if(this.player.collide(enemy)) {
             this.player.life -= 20;
-            this.coins = this.coins.concat(enemy.kill());
+            enemy.kill();
+        }
+    }
+
+    /* Coin Magnet */
+    for (var i = 0; i < this.coins.length; i++) {
+        var coin = this.coins[i];
+        if(this.player.collide(coin, this.player.magnet)) {
+            var dx = this.player.x - coin.x;
+            var dy = this.player.y - coin.y;
+            var no = Math.sqrt(dx * dx + dy * dy);
+            dx /= no;
+            dy /= no;
+
+            coin.accelerate(dx, dy);
+        }
+    }
+
+    /* Remove dead enemies */
+    for(var i = 0; i < this.enemies.length; i++) {
+        var enemy = this.enemies[i];
+        if(enemy.dead()) {
+            this.coins = this.coins.concat(enemy.getCoins());
             this.enemies.splice(i, 1); i--;
         }
     }
 
     /* Remove enemies out of screen */
     for(var i = 0; i < this.enemies.length; i++) {
-        if(this.enemyFilter(this.enemies[i])) {
+        if(this.enemyOutOfScreen(this.enemies[i])) {
             this.enemies.splice(i, 1); i--;
         }
     }
@@ -56,6 +79,7 @@ Game.prototype.update = function() {
         this.enemies.push( new_enemy );
     }
 
+    /* Regroup this.creatures */
     this.creatures = [];
     this.creatures = this.creatures.concat(this.coins);
     this.creatures = this.creatures.concat(this.enemies);

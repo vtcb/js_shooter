@@ -6,10 +6,10 @@ var Coin = function(x, y, size, life, vx, vy) {
 };
 Coin.prototype = Object.create(Creature.prototype);
 
-Coin.prototype.MAX_VX = 3;
-Coin.prototype.MAX_VY = 3;
-Coin.prototype.ACC_X  = 0;
-Coin.prototype.ACC_Y  = 0;
+Coin.prototype.MAX_VX = 6;
+Coin.prototype.MAX_VY = 6;
+Coin.prototype.ACC_X  = 0.3;
+Coin.prototype.ACC_Y  = 0.3;
 Coin.prototype.RET_X  = 0.1;
 Coin.prototype.RET_Y  = 0.1;
 

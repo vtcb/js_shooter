@@ -15,6 +15,7 @@ function Player(kbh, x, y, size, life, player) {
     }
 
     this.max_life = life;
+    this.magnet   = this.INITIAL_MAGNET;
 };
 
 Player.prototype = Object.create(Creature.prototype);
@@ -25,6 +26,7 @@ Player.prototype.ACC_X  = 0.2;
 Player.prototype.ACC_Y  = 0.2;
 Player.prototype.RET_X  = 0.05;
 Player.prototype.RET_Y  = 0.05;
+Player.prototype.INITIAL_MAGNET = 100;
 
 Player.prototype.CONTROL_P1 = { // Arrow Keys
     37 : 'left',

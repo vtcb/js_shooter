@@ -9,8 +9,15 @@ function Enemy(x, y, size, life) {
 
 Enemy.prototype = Object.create(Creature.prototype);
 
-
 Enemy.prototype.kill = function() {
+    this.life = 0;
+};
+
+Enemy.prototype.dead = function() {
+    return this.life <= 0;
+};
+
+Enemy.prototype.getCoins = function() {
     var qty = randomIn(2, 10);
     var coins = [];
     var generator = new CoinGenerator(this.x, this.y);

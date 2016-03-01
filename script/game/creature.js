@@ -17,8 +17,6 @@ function Creature(x, y, size, life) {
 
     this.controls = this.CONTROL_P1;
     this.enabledDirections = [];
-
-    this.enabledDirections.push('right');
 };
 
 Creature.prototype.MAX_VX = 3;
@@ -42,9 +40,13 @@ Creature.prototype.DIRECTIONS = [
     'down'
 ];
 
-Creature.prototype.accelerate = function(dx, dy) {
-    this.vx = limit(this.vx + dx * this.ACC_X, -this.MAX_VX, this.MAX_VX);
-    this.vy = limit(this.vy + dy * this.ACC_Y, -this.MAX_VY, this.MAX_VY);
+Creature.prototype.accelerate = function(dx, dy, ax, ay) {
+    ay = ay || ax;
+    ax = ax || this.ACC_X;
+    ay = ay || this.ACC_Y;
+
+    this.vx = limit(this.vx + dx * ax, -this.MAX_VX, this.MAX_VX);
+    this.vy = limit(this.vy + dy * ay, -this.MAX_VY, this.MAX_VY);
 };
 
 Creature.prototype.retard = function() {
@@ -68,8 +70,9 @@ Creature.prototype.move = function() {
     this.y += this.vy;
 };
 
-Creature.prototype.collide = function(that) {
-    return 2 * Math.sqrt(sqr(this.x - that.x) + sqr(this.y - that.y)) <= this.size + that.size;
+Creature.prototype.collide = function(that, border) {
+    border = border || 0;
+    return Math.sqrt(sqr(this.x - that.x) + sqr(this.y - that.y)) <= (this.size + that.size)/2 + border;
 };
 
 Creature.prototype.checkDirection = function(direction) {
