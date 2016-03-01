@@ -13,6 +13,8 @@ function Player(kbh, x, y, size, life, player) {
             this.controls = this['CONTROL_P' + player];
         }
     }
+
+    this.max_life = life;
 };
 
 Player.prototype = Object.create(Creature.prototype);

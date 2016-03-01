@@ -8,7 +8,7 @@ function Game(canvas, kbh, fps_ctrl, width, height) {
 
     this.kbh       = kbh;
 
-    this.player1   = new Player(kbh, this.canvas.width/2, this.canvas.height/2, 20, 20, 'both');
+    this.player1   = new Player(kbh, this.canvas.width/2, this.canvas.height/2, 20, 100, 'both');
 
     this.player    = this.player1;
     this.enemies   = [];
@@ -33,13 +33,21 @@ Game.prototype.update = function() {
         creature.update();
     }
 
-    /* Remove enemies out of screen */
-    for(var i in this.enemies) {
-        if(this.enemyFilter(this.enemies[i])) {
-            this.enemies[i].remove = true;
+    for(var i = 0; i < this.enemies.length; i++) {
+        var enemy = this.enemies[i];
+        if(this.player.collide(enemy)) {
+            this.player.life -= 20;
+            //this.coins.concat(enemy.kill());
+            this.enemies.splice(i, 1); i--;
         }
     }
-    this.enemies   = this.enemies.filter( function(elem) { return !elem.remove; });
+
+    /* Remove enemies out of screen */
+    for(var i = 0; i < this.enemies.length; i++) {
+        if(this.enemyFilter(this.enemies[i])) {
+            this.enemies.splice(i, 1); i--;
+        }
+    }
 
     /* Gerenerate more enemies */
     while(this.enemies.length < 30) {
@@ -85,5 +93,12 @@ Game.prototype.draw = function(ctx) {
                 creature.draw(ctx);
             ctx.restore();
         }
+    ctx.restore();
+
+    ctx.save();
+        ctx.fillStyle = '#222222';
+        ctx.fillRect(10, 10, 104, 20);
+        ctx.fillStyle = '#CC0000';
+        ctx.fillRect(12, 12, 100 * this.player.life/this.player.max_life, 16);
     ctx.restore();
 };

@@ -29,3 +29,7 @@ function remove(arr, n) {
 function valid(x, y, n, m, n_, m_) {
     return x >= (n_ || 0) && y >= (m_ || 0) && x < n && y < m;
 }
+
+function sqr(x) {
+    return x * x;
+}

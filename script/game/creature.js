@@ -10,6 +10,8 @@ function Creature(x, y, size, life) {
     this.width    = size;
     this.height   = size;
 
+    this.life     = life;
+
     this.vx       = 0;
     this.vy       = 0;
 
@@ -64,6 +66,10 @@ Creature.prototype.retard = function() {
 Creature.prototype.move = function() {
     this.x += this.vx;
     this.y += this.vy;
+};
+
+Creature.prototype.collide = function(that) {
+    return 2 * Math.sqrt(sqr(this.x - that.x) + sqr(this.y - that.y)) <= this.size + that.size;
 };
 
 Creature.prototype.checkDirection = function(direction) {

@@ -6,8 +6,15 @@
 function Enemy(x, y, size, life) {
     Creature.call(this, x, y, size, life);
 };
+
 Enemy.prototype = Object.create(Creature.prototype);
 
+
+Enemy.prototype.kill = function() {
+    var coins = [];
+
+    return coins;
+};
 
 Enemy.prototype.draw = function(ctx) {
     ctx.fillStyle = 'rgb(150, 10, 50)';
